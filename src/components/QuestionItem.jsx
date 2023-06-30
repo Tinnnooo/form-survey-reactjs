@@ -29,7 +29,7 @@ export default function QuestionItem({ questions, formSlug, getForm }) {
       </div>
 
       <div className="question-item card card-default my-4">
-        <QuestionForm formSlug={formSlug} />
+        <QuestionForm formSlug={formSlug} getForm={getForm} />
       </div>
     </>
   );

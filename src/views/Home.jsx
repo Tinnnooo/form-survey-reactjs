@@ -16,8 +16,9 @@ export default function Home() {
         setForms(data.forms);
         setLoading(false);
       })
-      .catch((err) => {
-        throw err;
+      .catch(({ response }) => {
+        console.log(response.data.message);
+        setLoading(false);
       });
   }, []);
 

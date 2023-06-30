@@ -9,8 +9,8 @@ const StateContext = createContext({
     color: null,
     show: false,
   },
-  setCurrentUser: () => {},
-  setUserToken: () => {},
+  setCurrentUser: () => { },
+  setUserToken: () => { },
 });
 
 export const ContextProvider = ({ children }) => {

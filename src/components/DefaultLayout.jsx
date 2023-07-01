@@ -2,13 +2,25 @@ import { Link, Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
 import axiosClient from "../axios";
 import Toast from "./Toast";
+import { useEffect } from "react";
 
 export default function DefaultLayout() {
-  const { userToken, setToken, showToast } = useStateContext();
+  const { setCurrentUser, userToken, setToken, showToast } = useStateContext();
 
   if (!userToken) {
     return <Navigate to="/login" />;
   }
+
+  useEffect(() => {
+    axiosClient
+      .get("v1/auth/me")
+      .then(({ data }) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const logout = (e) => {
     e.preventDefault();

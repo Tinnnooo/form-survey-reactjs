@@ -16,12 +16,13 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
+    if (error.response && error.response.data.message) {
+      throw error;
+    } else {
       localStorage.removeItem("accessToken");
       window.location.reload();
       return error;
     }
-    throw error;
   }
 );
 

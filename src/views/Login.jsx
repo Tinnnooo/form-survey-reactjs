@@ -38,7 +38,7 @@ export default function Login() {
   };
 
   return (
-    <form action="manage-forms.html" onSubmit={onSubmit} method="POST">
+    <form onSubmit={onSubmit}>
       {error.__html && (
         <div className="text-danger" dangerouslySetInnerHTML={error}></div>
       )}

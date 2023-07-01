@@ -9,7 +9,7 @@ export default function QuestionForm({ formSlug, getForm }) {
   const [choice_type, setChoiceType] = useState("");
   const [choices, setChoices] = useState("");
   const [is_required, setIsRequired] = useState(false);
-  const [haveOptions] = useState(['multiple choice', 'dropdown', 'checkboxes'])
+  const [haveOptions] = useState(["multiple choice", "dropdown", "checkboxes"]);
   const [error, setError] = useState({});
 
   const shouldHaveChoices = (type = null) => {
@@ -25,39 +25,47 @@ export default function QuestionForm({ formSlug, getForm }) {
             value={choices}
             onChange={(e) => setChoices(e.target.value)}
           ></textarea>
-          {error.choices && <small className="text-danger">{error.choices}</small>}
+          {error.choices && (
+            <small className="text-danger">{error.choices}</small>
+          )}
           <div className="form-text">Separate choices using comma ",".</div>
         </div>
-      )
+      );
     }
     return;
-  }
+  };
 
   const resetValue = () => {
-    setName('');
-    setChoiceType('');
-    setChoices('');
-    setIsRequired('');
-  }
+    setName("");
+    setChoiceType("");
+    setChoices("");
+    setIsRequired("");
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const choiceArray = choices.split(", ").filter(choice => choice.trim() !== "");
-    axiosClient.post(`/v1/forms/${formSlug}/questions`, {
-      name,
-      choice_type,
-      choices: choiceArray,
-      is_required,
-    })
+    const choiceArray = choices
+      .split(", ")
+      .filter((choice) => choice.trim() !== "");
+    axiosClient
+      .post(`/v1/forms/${formSlug}/questions`, {
+        name,
+        choice_type,
+        choices: choiceArray,
+        is_required,
+      })
       .then(({ data }) => {
         showToast(data.message);
         resetValue();
         getForm();
-      }).catch(({ response }) => {
-        showToast(response.data.message, "red");
-        setError(response.data.errors);
       })
-  }
+      .catch(({ response }) => {
+        showToast(response.data.message, "red");
+        if (response.data.errors) {
+          setError(response.data.errors);
+        }
+      });
+  };
 
   return (
     <div className="card-body">
@@ -91,7 +99,9 @@ export default function QuestionForm({ formSlug, getForm }) {
               </option>
             ))}
           </select>
-          {error.choice_type && <small className="text-danger">{error.choice_type}</small>}
+          {error.choice_type && (
+            <small className="text-danger">{error.choice_type}</small>
+          )}
         </div>
 
         {shouldHaveChoices()}

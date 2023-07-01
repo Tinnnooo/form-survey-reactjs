@@ -10,7 +10,7 @@ export default function DetailForm() {
   const { showToast } = useStateContext();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({});
-  const [link, setLink] = useState(window.location.href);
+  const [link, setLink] = useState(window.location.href + "/invited");
   const [activeTab, setActiveTab] = useState("questions");
 
   const { form_slug } = useParams();
@@ -67,7 +67,7 @@ export default function DetailForm() {
     } else if (activeTab === "responses") {
       return (
         <div className="col-lg-10">
-          <ResponseItem formSlug={form_slug} />
+          <ResponseItem form={form} />
         </div>
       );
     }
@@ -116,8 +116,9 @@ export default function DetailForm() {
                   <ul className="nav nav-tabs mb-2 justify-content-center">
                     <li className="nav-item">
                       <button
-                        className={`nav-link ${activeTab === "questions" ? "active" : ""
-                          }`}
+                        className={`nav-link ${
+                          activeTab === "questions" ? "active" : ""
+                        }`}
                         onClick={switchToQuestions}
                       >
                         Questions
@@ -125,8 +126,9 @@ export default function DetailForm() {
                     </li>
                     <li className="nav-item">
                       <button
-                        className={`nav-link ${activeTab === "responses" ? "active" : ""
-                          }`}
+                        className={`nav-link ${
+                          activeTab === "responses" ? "active" : ""
+                        }`}
                         onClick={switchToResponses}
                       >
                         Responses
@@ -136,13 +138,13 @@ export default function DetailForm() {
                 </div>
               </div>
 
-              <div className="row justify-content-center">{renderContent()}</div>
+              <div className="row justify-content-center">
+                {renderContent()}
+              </div>
             </div>
           </div>
         </>
-      )
-      }
-
+      )}
     </main>
   );
 }

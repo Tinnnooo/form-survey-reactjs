@@ -6,6 +6,8 @@ import Home from "./views/Home";
 import CreateForm from "./views/CreateForm";
 import Notfound from "./views/Notfound";
 import DetailForm from "./views/DetailForm";
+import SubmitForm from "./views/SubmitForm";
+import Forbidden from "./views/Forbidden";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
         path: "/form/:form_slug",
         element: <DetailForm />,
       },
+      {
+        path: "/form/:form_slug/invited",
+        element: <SubmitForm />,
+      },
     ],
   },
   {
@@ -43,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <Notfound />,
+  },
+  {
+    path: "/forbidden",
+    element: <Forbidden />,
   },
 ]);
 

@@ -17,8 +17,8 @@ export default function Home() {
         setLoading(false);
       })
       .catch(({ response }) => {
-        console.log(response.data.message);
         setLoading(false);
+        console.log(response.data.message);
       });
   }, []);
 
